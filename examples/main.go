@@ -1,10 +1,16 @@
 package main
 
+import (
+	"fmt"
 
+	dwm "github.com/hi-manshu/DWM1000"
+)
 
-func main(){
+func main() {
 
-	var dwm dwm1000.DWM1000
-	dwm.Init()
-	dwm1000.DeviceID()
+	var tag dwm.DWM1000
+	tag.Init()
+	fmt.Println(tag.DeviceID())
+
+	fmt.Println(tag.EUI_ID())
 }
