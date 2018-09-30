@@ -50,12 +50,21 @@ func (d *DevID) Fill(data []byte) {
 }
 
 func (d *DevID) String() string {
+<<<<<<< HEAD
 
 	return fmt.Sprintf("%0x,Model:%d,Ver:%v,Rev:%v", d.RIDTAG, d.MODEL, d.VER, d.REV)
 }
 
 const NOP byte = 0X00
 
+=======
+
+	return fmt.Sprintf("%0x,Model:%d,Ver:%v,Rev:%v", d.RIDTAG, d.MODEL, d.VER, d.REV)
+}
+
+const NOP byte = 0X00
+
+>>>>>>> ac03ff24d7e5a2bb2c6b563e0eb5a60d8273d46f
 func (d *DWM1000) DeviceID() string {
 
 	cmd := []byte{0x00, NOP, NOP, NOP, NOP}
@@ -70,6 +79,7 @@ func (d *DWM1000) DeviceID() string {
 	fmt.Printf("\n DEV_ID Response : %0x \n", id)
 	d.devID.Fill(id)
 	return fmt.Sprintf("%0X", id)
+<<<<<<< HEAD
 }
 
 func (d *DWM1000) DevID() DevID {
@@ -95,6 +105,33 @@ func (d *DWM1000) EUI_ID() string {
 	if error != nil {
 		log.Println("Error reading REG ")
 	}
+=======
+}
+
+func (d *DWM1000) DevID() DevID {
+	return d.devID
+}
+
+func flip(data []byte) []byte {
+	N := len(data)
+	fmt.Printf("\nRecieved .. %0X", data)
+	result := make([]byte, len(data))
+	for i, d := range data {
+		result[N-i-1] = d
+	}
+	fmt.Printf("\nReturning .. %0X", result)
+	return result
+}
+
+func (d *DWM1000) EUI_ID() string {
+
+	cmd := []byte{0x01, NOP, NOP, NOP, NOP, NOP, NOP, NOP, NOP}
+	output := make([]byte, len(cmd))
+	error := d.dev.Tx(cmd, output)
+	if error != nil {
+		log.Println("Error reading REG ")
+	}
+>>>>>>> ac03ff24d7e5a2bb2c6b563e0eb5a60d8273d46f
 	fmt.Printf("\n raw EUI ID Response : %0x \n", output)
 
 	id := flip(output[1:])
@@ -102,6 +139,7 @@ func (d *DWM1000) EUI_ID() string {
 
 	return fmt.Sprintf("%0X", id)
 }
+<<<<<<< HEAD
 
 func (d *DWM1000) TxPower() string {
 	// 0x1E
@@ -133,3 +171,5 @@ func (d *DWM1000) PANid() string {
 
 	return fmt.Sprintf("%0x", id)
 }
+=======
+>>>>>>> ac03ff24d7e5a2bb2c6b563e0eb5a60d8273d46f
